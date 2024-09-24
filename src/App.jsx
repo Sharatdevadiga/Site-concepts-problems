@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import Layout from "./components/layout";
+import Layout from "./components/Layout";
 import Home from "./components/Home";
 import DebounceEl from "./components/concepts/debouncer/DebounceEl";
 import CompoundCompEl from "./components/concepts/compoundComponentPattern/CompoundCompEl";
