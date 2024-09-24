@@ -1,4 +1,4 @@
-import Code from "../../code/Code";
+import Code from "../../general/Code";
 import Counter from "./counter";
 
 const codeStr = `
@@ -96,7 +96,7 @@ function CompoundCompEl() {
   return (
     <div className="space-y-12">
       <div>
-        <h1>2. Compound Component pattern</h1>
+        <h1>Compound Component pattern</h1>
         <p>
           The Compound Component Pattern is a design pattern in React that
           allows multiple related components to work together to manage state

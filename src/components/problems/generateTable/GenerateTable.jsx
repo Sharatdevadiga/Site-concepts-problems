@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Code from "../../code/Code";
+import Code from "../../general/Code";
 
 const code = `
 import { useState } from "react";
@@ -125,7 +125,7 @@ function GenerateTable() {
 
   return (
     <main className="space-y-12">
-      <h1>Generate table</h1>
+      <h1>1. Generate table</h1>
       <p>
         Write a React component that generates a table based on user input for
         the number of rows and columns. The table should be populated with

@@ -1,6 +1,6 @@
 import Card from "./Card";
 import useCustomFetcher from "./useCustomFetcher";
-import Code from "../../code/Code";
+import Code from "../../general/Code";
 
 const code = `
 // Custom fetcher hook
@@ -83,7 +83,7 @@ function FetcherEL() {
   return (
     <main className="space-y-12">
       <section>
-        <h1>3. Custom fetcher</h1>
+        <h1>Custom fetcher</h1>
         <p>
           The useCustomFetcher hook is a custom React hook designed to simplify
           the process of fetching data from a given URL and managing related
@@ -109,13 +109,15 @@ function FetcherEL() {
             <></>
           )}
 
-          <div>
+          {data?.length ? (
             <div className="flex flex-wrap gap-3  p-3">
               {data?.slice(0, 6)?.map((entry, i) => (
                 <Card key={entry.id} index={i} entry={entry}></Card>
               ))}
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
       </section>
 

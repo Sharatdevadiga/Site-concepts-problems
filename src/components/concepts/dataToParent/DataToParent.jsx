@@ -1,4 +1,4 @@
-import Code from "../../code/Code";
+import Code from "../../general/Code";
 import Parent from "./parent";
 
 const code = `
@@ -55,7 +55,7 @@ function DataToParent() {
   return (
     <main className="space-y-12">
       <section>
-        <h1>4. Passing data from child component to parent</h1>
+        <h1>Passing data from child component to parent</h1>
         <p>
           The callback pattern in React allows a child component to send data to
           its parent by invoking a function passed down as a prop. The parent

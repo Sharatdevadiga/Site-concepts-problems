@@ -3,7 +3,7 @@ import { useState } from "react";
 
 function useCustomFetcher(url) {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
 
@@ -17,6 +17,9 @@ function useCustomFetcher(url) {
     try {
       reset();
       const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res?.status}`);
+      }
       const data = await res.json();
       setData(data);
     } catch (err) {

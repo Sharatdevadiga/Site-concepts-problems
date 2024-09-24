@@ -1,31 +1,34 @@
 import { useState } from "react";
-import useDebouncer from "./useDebouncer";
+import useThrottledValue from "./useThrottledValue";
 import Code from "../../general/Code";
 
 const codeStr = `
-// USEDEBOUNCER HOOK
-import { useEffect, useState } from "react";
+// useThrottledValue HOOK
+import { useEffect, useRef, useState } from "react";
 
-function useDebouncer(value, delay = 500) {
-  const [debouncedValue, setDebouncedValue] = useState();
+function useThrottledValue(value, delay = 500) {
+  const [throttledValue, setThrottledValue] = useState(value);
+  const lastExecutedRef = useRef(new Date());
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
+      if (Date.now() - lastExecutedRef.current >= delay) {
+        setThrottledValue(value);
+        lastExecutedRef.current = Date.now();
+      }
+    }, delay - (Date.now() - lastExecutedRef.current));
     return () => clearTimeout(timerId);
   }, [value, delay]);
 
-  return debouncedValue;
+  return throttledValue;
 }
 
-export default useDebouncer;
+export default useThrottledValue;
 
 // DEBOUNCER COMPONENT
-function DebounceEl() {
+function ThrottledValueEL() {
   const [inputVal, setInputVal] = useState("");
-  const debouncedValue = useDebouncer(inputVal);
+  const throttledValue = useThrottledValue(inputVal);
 
   function handleChange(e) {
     setInputVal(e.target.value);
@@ -41,16 +44,16 @@ function DebounceEl() {
           onChange={handleChange}
         />
         <h3>Input value: {inputVal}</h3>
-        <h3>Debounce Vallue: {debouncedValue}</h3>
+        <h3>Debounce Vallue: {throttledValue}</h3>
       </div>
     </div>
   );
 }
 `;
 
-function DebounceEl() {
+function ThrottledValueEL() {
   const [inputVal, setInputVal] = useState("");
-  const debouncedValue = useDebouncer(inputVal);
+  const throttledValue = useThrottledValue(inputVal);
 
   function handleChange(e) {
     setInputVal(e.target.value);
@@ -59,14 +62,12 @@ function DebounceEl() {
   return (
     <main className="space-y-12">
       <section>
-        <h1>Debounced Value</h1>
+        <h1>Throttled Value</h1>
         <p>
-          A debouncer is a function that delays the execution of a task until a
-          certain period of time has passed since it was last called. Its
-          commonly used to limit the rate at which a function is executed,
-          especially in response to user input, like typing in a search box. The
-          purpose is to avoid performing expensive operations (like API calls)
-          too frequently.
+          A throttled function custom hook allows you to limit the rate at which
+          a function is called. This is useful when you want to ensure that a
+          function is not called too frequently, for example in response to
+          continuous events like scrolling, resizing, or typing.
         </p>
       </section>
       <section>
@@ -79,7 +80,7 @@ function DebounceEl() {
             placeholder="Enter some text"
           />
           <h3>Input value: {inputVal}</h3>
-          <h3>Debounce Vallue: {debouncedValue}</h3>
+          <h3>Debounce Vallue: {throttledValue}</h3>
         </div>
       </section>
       <Code code={codeStr}></Code>
@@ -87,4 +88,4 @@ function DebounceEl() {
   );
 }
 
-export default DebounceEl;
+export default ThrottledValueEL;
