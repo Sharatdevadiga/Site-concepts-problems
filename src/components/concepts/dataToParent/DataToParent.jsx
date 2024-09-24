@@ -1,5 +1,5 @@
 import Code from "../../general/Code";
-import Parent from "./parent";
+import Parent from "./Parent";
 
 const code = `
 // PARENT -> PASSES THE CALLBACK TO CHILD ACCEPTING THE PARAMETER
